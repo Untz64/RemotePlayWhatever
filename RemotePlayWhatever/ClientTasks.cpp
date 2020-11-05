@@ -60,7 +60,7 @@ void RemotePlayInviteTask::Start()
     if (GClientContext()->ClientUser()->BIsAnyGameRunning())
     {
         CGameID gameID = GClientContext()->ClientUser()->GetRunningGameID(0);
-        if (gameID.IsValid())
+        if (gameID.IsSteamApp())
         {
             GClientContext()->RemoteClientManager()->CreateRemotePlayInviteAndSession(m_invitee, gameID.AppID());
             GClientContext()->RemoteClientManager()->SetStreamingDriversInstalled(true);
@@ -95,7 +95,7 @@ void RemotePlayInviteTask::OnRemotePlayStart(RemoteClientStartStreamSession_t* s
         }
 
         sprintf(buf, 
-            "steam://remoteplay/connect/%llu?appid=%d&auth=%s&transport=k_EStreamTransportSDR&relay=%s&restricted_countries=CN,XC", 
+            "Please open this link in your default browser to join: steam://remoteplay/connect/%llu?appid=%d&auth=%s&transport=k_EStreamTransportSDR&relay=%s&restricted_countries=CN,XC", 
             GClientContext()->ClientUser()->GetSteamID().ConvertToUint64(), 
             480, 
             authKey.c_str(), 
